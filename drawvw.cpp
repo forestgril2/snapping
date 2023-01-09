@@ -408,7 +408,7 @@ void CDrawView::PasteEmbedded(COleDataObject& dataObject, CPoint point)
 	EndWaitCursor();
 }
 
-CPoint CDrawView::GetNearestEndpoint(const CDrawObj* selectedObj, const CPoint& ptStart, float dist)
+std::optional<CPoint> CDrawView::GetSnapEndpoint(const CDrawObj* selectedObj, const CPoint& ptStart, float dist)
 {
 	auto pDoc = GetDocument();
 	auto pObjs = pDoc->GetObjects();	
@@ -416,8 +416,8 @@ CPoint CDrawView::GetNearestEndpoint(const CDrawObj* selectedObj, const CPoint& 
 	
 	// Get handles==endpoints for all objects within distance and find nearest 
 	auto pos = pObjs->GetHeadPosition();
-	auto nearest = ptStart;
-	auto nearestDist2 = dist2 +1;
+	auto nearest = std::optional<CPoint>{std::nullopt};
+	auto nearestDist2 = dist2;
 
 	while (pos != NULL)
 	{

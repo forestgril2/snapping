@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by DRAWCLI.RC
+// Plik dołączany wygenerowany przez środowisko Microsoft Visual C++.
+// Używany przez: drawcli.rc
 //
 #define IDR_MAINFRAME                   2
 #define IDR_DRAWCLTYPE                  3
@@ -23,6 +23,7 @@
 #define IDC_TITLE                       108
 #define IDC_SUBJECT                     109
 #define IDC_TEMPLATE                    110
+#define IDC_SNAP_ENDPOINT               110
 #define IDC_SAVEDBY                     111
 #define IDC_REVNUM                      112
 #define IDC_EDITTIME                    113
@@ -57,10 +58,10 @@
 #define ID_BUTTON32811                  -32725
 
 // Next default values for new objects
-//
+// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        110
+#define _APS_NEXT_RESOURCE_VALUE        111
 #define _APS_NEXT_COMMAND_VALUE         32812
 #define _APS_NEXT_CONTROL_VALUE         124
 #define _APS_NEXT_SYMED_VALUE           101

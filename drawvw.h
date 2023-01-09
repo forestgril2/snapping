@@ -9,6 +9,7 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#include <optional>
 
 // Hints for UpdateAllViews/OnUpdate
 #define HINT_UPDATE_WINDOW      0
@@ -49,7 +50,7 @@ public:
 	void Remove(CDrawObj* pObj);
 	void PasteNative(COleDataObject& dataObject);
 	void PasteEmbedded(COleDataObject& dataObject, CPoint point );
-	CPoint GetNearestEndpoint(const CDrawObj* pSelectedObj, const CPoint& ptStart, float dist);
+	std::optional<CPoint> GetSnapEndpoint(const CDrawObj* pSelectedObj, const CPoint& ptStart, float dist);
 
 // Implementation
 protected:

@@ -99,6 +99,7 @@
       <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_AFXDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -183,6 +184,7 @@
     <ClInclude Include="mainfrm.h" />
     <ClInclude Include="propset.h" />
     <ClInclude Include="rectdlg.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="splitfrm.h" />
     <ClInclude Include="statpage.h" />
     <ClInclude Include="stdafx.h" />
@@ -200,6 +202,7 @@
   <ItemGroup>
     <None Include="res\drawcli.rc2" />
     <None Include="res\pencil.cur" />
+    <None Include="res\snap_endpoint.cur" />
     <None Include="setup.rul" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

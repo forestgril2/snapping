@@ -18,6 +18,8 @@
 #include "drawobj.h"
 #include "drawtool.h"
 
+#include <optional>
+
 /////////////////////////////////////////////////////////////////////////////
 // CDrawTool implementation
 
@@ -275,6 +277,7 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 	pView->ClientToDoc(ptLocal);
 	CPoint delta = (CPoint)(ptLocal - ptLast);
 
+	std::optional<CPoint> snap{ std::nullopt };
 	POSITION pos = pView->m_selection.GetHeadPosition();
 	while (pos != NULL)
 	{
@@ -288,7 +291,10 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 		}
 		else if (nDragHandle != 0)
 		{
-			pObj->MoveHandleTo(nDragHandle, pView->GetNearestEndpoint(pObj, ptLocal, 10), pView);
+			// TODO: It is suboptimal to call GetSnapEndpoint() for every MouseMove.
+			// A list of static (ie. not-moved at the moment) endpoints could be kept somwhere instead
+			snap = pView->GetSnapEndpoint(pObj, ptLocal, 10);
+			pObj->MoveHandleTo(nDragHandle, snap ? *snap : ptLocal, pView);
 		}
 	}
 
@@ -299,6 +305,12 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 		c_last = point;
 		SetCursor(pView->m_selection.GetHead()->GetHandleCursor(nDragHandle));
 		
+		if (snap)
+		{
+			// Change the cursor to indicate that we are snapping to an endpoint
+			HCURSOR hCursor = LoadCursor(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDC_SNAP_ENDPOINT));
+			SetCursor(hCursor);	
+		}
 		return; // bypass CDrawTool
 	}
 
