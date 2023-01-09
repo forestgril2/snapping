@@ -303,13 +303,16 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 	if (selectMode == size && c_drawShape == selection)
 	{
 		c_last = point;
-		SetCursor(pView->m_selection.GetHead()->GetHandleCursor(nDragHandle));
 		
 		if (snap)
 		{
 			// Change the cursor to indicate that we are snapping to an endpoint
 			HCURSOR hCursor = LoadCursor(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDC_SNAP_ENDPOINT));
 			SetCursor(hCursor);	
+		}
+		else
+		{
+			SetCursor(pView->m_selection.GetHead()->GetHandleCursor(nDragHandle));
 		}
 		return; // bypass CDrawTool
 	}
