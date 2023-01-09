@@ -288,7 +288,7 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 		}
 		else if (nDragHandle != 0)
 		{
-			pObj->MoveHandleTo(nDragHandle, ptLocal, pView);
+			pObj->MoveHandleTo(nDragHandle, pView->GetNearestEndpoint(pObj, ptLocal, 10), pView);
 		}
 	}
 
