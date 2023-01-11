@@ -24,6 +24,8 @@
 #include "drawtool.h"
 #include "mainfrm.h"
 
+#include "snapping.h"
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char BASED_CODE THIS_FILE[] = __FILE__;
@@ -101,6 +103,7 @@ END_MESSAGE_MAP()
 // CDrawView construction/destruction
 
 CDrawView::CDrawView()
+	: m_snapping{new Snapping(*this)}
 {
 	m_bGrid = TRUE;
 	m_gridColor = RGB(0, 0, 128);
@@ -408,6 +411,11 @@ void CDrawView::PasteEmbedded(COleDataObject& dataObject, CPoint point)
 	EndWaitCursor();
 }
 
+
+std::optional<CPoint> CDrawView::GetSnap(const CDrawObj* selectedObj, const CPoint& ptStart, float dist)
+{
+	return m_snapping->Get(selectedObj, ptStart, dist);
+}
 
 void CDrawView::DrawGrid(CDC* pDC)
 {

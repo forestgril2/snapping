@@ -8,8 +8,12 @@
 // electronic documentation provided with the library.
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
+#pragma once
 
 #include <optional>
+#include <memory>
+
+#include "drawobj.h"
 
 // Hints for UpdateAllViews/OnUpdate
 #define HINT_UPDATE_WINDOW      0
@@ -19,6 +23,8 @@
 #define HINT_UPDATE_OLE_ITEMS   4
 
 class CDrawObj;
+class CDrawDoc;
+class Snapping;
 
 /////////////////////////////////////////////////////////////////////////////
 // CDrawView
@@ -50,6 +56,7 @@ public:
 	void Remove(CDrawObj* pObj);
 	void PasteNative(COleDataObject& dataObject);
 	void PasteEmbedded(COleDataObject& dataObject, CPoint point );
+	std::optional<CPoint> GetSnap(const CDrawObj* selectedObj, const CPoint& ptStart, float dist);
 
 // Implementation
 protected:
@@ -64,6 +71,8 @@ protected:
 	BOOL GetObjectInfo(COleDataObject* pDataObject,
 		CSize* pSize, CSize* pOffset);
 	// end of drop-target additions
+
+	std::unique_ptr<Snapping> m_snapping;
 
 public:
 	virtual ~CDrawView();

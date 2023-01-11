@@ -14,7 +14,7 @@ class Snapping
 {
 public:
 
-    enum Modes : char
+    enum Modes : unsigned
     {
         SNAP_NONE          = 0x0,
         SNAP_ANY           = 0x1,
@@ -29,50 +29,9 @@ public:
     };
 
     Snapping(CDrawView& view);
-    ~Snapping();
+    ~Snapping() = default;
     
-	std::optional<CPoint> GetSnapEndpoint(const CDrawObj* pSelectedObj, const CPoint& ptStart, float dist)
-    {
-        auto pDoc = m_view.GetDocument();
-        auto pObjs = pDoc->GetObjects();	
-        auto dist2 = dist*dist;
-        
-        // Get handles==endpoints for all objects within distance and find nearest 
-        auto pos = pObjs->GetHeadPosition();
-        auto nearest = std::optional<CPoint>{std::nullopt};
-        auto nearestDist2 = dist2;
-
-        while (pos != NULL)
-        {
-            CDrawObj* pObj = pObjs->GetNext(pos);
-            if (pObj == pSelectedObj)
-                continue;
-
-            const auto numHandles = pObj->GetHandleCount();
-            for (int i=1; i<=numHandles; ++i)
-            {
-                CPoint ptHandle = pObj->GetHandle(i);
-
-                // Exclude handles that are too far away using rectangle intersection 
-                CRect rect(ptStart, ptStart);
-                rect.InflateRect(dist, dist);
-                if (!rect.PtInRect(ptHandle))
-                    continue;
-
-                const float dx = ptStart.x - ptHandle.x;
-                const float dy = ptStart.y - ptHandle.y;
-                const float d2 = dx*dx + dy*dy;
-
-                if (d2 <= nearestDist2)
-                {
-                    nearest = ptHandle;
-                    nearestDist2 = d2;
-                }
-            }
-        }
-
-        return nearest;
-    }
+	std::optional<CPoint> Get(const CDrawObj* pSelectedObj, const CPoint& ptStart, float dist);
 
     /**
      * @brief Recalculate the snap points

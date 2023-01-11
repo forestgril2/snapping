@@ -293,7 +293,7 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 		{
 			// TODO: It is suboptimal to call GetSnapEndpoint() for every MouseMove.
 			// A list of static (ie. not-moved at the moment) endpoints could be kept somwhere instead
-			snap = pView->GetSnapEndpoint(pObj, ptLocal, 10);
+			snap = pView->GetSnap(pObj, ptLocal, 10);
 			pObj->MoveHandleTo(nDragHandle, snap ? *snap : ptLocal, pView);
 		}
 	}

@@ -149,6 +149,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug/drawcli.pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release/drawcli.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="snapping.cpp" />
     <ClCompile Include="splitfrm.cpp">
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug/drawcli.pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release/drawcli.pch</PrecompiledHeaderOutputFile>
@@ -185,6 +186,7 @@
     <ClInclude Include="propset.h" />
     <ClInclude Include="rectdlg.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="snapping.h" />
     <ClInclude Include="splitfrm.h" />
     <ClInclude Include="statpage.h" />
     <ClInclude Include="stdafx.h" />
