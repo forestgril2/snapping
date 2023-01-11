@@ -50,7 +50,6 @@ public:
 	void Remove(CDrawObj* pObj);
 	void PasteNative(COleDataObject& dataObject);
 	void PasteEmbedded(COleDataObject& dataObject, CPoint point );
-	std::optional<CPoint> GetSnapEndpoint(const CDrawObj* pSelectedObj, const CPoint& ptStart, float dist);
 
 // Implementation
 protected:
