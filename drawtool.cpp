@@ -291,8 +291,9 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 		}
 		else if (nDragHandle != 0)
 		{
-			// TODO: It is suboptimal to call GetSnapEndpoint() for every MouseMove.
-			// A list of static (ie. not-moved at the moment) endpoints could be kept somwhere instead
+			// TODO: Isn't it suboptimal to call GetSnap for every MouseMove?
+			//		 For dense views, this could be mitigated by using any of the well-known collision detection algorithms.
+			//		 E.g. a quadtree or a spatial hash like this: https://ronandoherty.com/blog/spatial-hashing.
 			snap = pView->GetSnap(pObj, ptLocal, 10);
 			pObj->MoveHandleTo(nDragHandle, snap ? *snap : ptLocal, pView);
 		}
@@ -306,7 +307,13 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags,
 		
 		if (snap)
 		{
-			// Change the cursor to indicate that we are snapping to an endpoint
+			// Change the cursor to a hand-drawn one, to indicate that we are snapping to an endpoint
+			// TODO: For multiple snapping operations at the same time, the cursor handling gets complex.
+			//	     We should probably pre-generate the possible snap-cursor combinations before compilation
+			//	     using a set of enum flags from Snapping class or similar.  
+			//	     Otherwise we could consider an image dragging operation, to drag a compound image
+			//	     indicator - generated on the fly - with the original cursor. This seems beyond the scope
+			//	     of this sample task though.
 			HCURSOR hCursor = LoadCursor(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDC_SNAP_ENDPOINT));
 			SetCursor(hCursor);	
 		}
